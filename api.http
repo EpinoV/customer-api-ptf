@@ -1,0 +1,72 @@
+########################################################################################
+# API Documentation
+# Para ejecutar este archivo, instale la extensión "REST Client" en Visual Studio Code
+########################################################################################
+
+@baseUrl = http://localhost:3000/api
+
+###
+# @name tokenRequest
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "user_name": "user",
+    "password": "user1234"
+}
+
+###
+@authToken = {{tokenRequest.response.body.token}}
+
+###
+# @name createCustomer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "cust_first_name": "John",
+    "cust_last_name": "Doe",
+    "cust_email": "a@a.com",
+    "cust_date_of_birth": "1990-01-01",
+    "cust_phone_number": "1234567890",
+    "cust_address": "123 Main St",
+    "city_id": 4,
+    "seller_id": 1
+}
+
+###
+@lastCustomerId = {{createCustomer.response.body.data.CUST_ID}}
+
+###
+# @name deleteCustomer
+DELETE {{baseUrl}}/customers/{{lastCustomerId}}
+Authorization: Bearer {{authToken}}
+
+###
+# @name updateCustomer
+PUT {{baseUrl}}/customers/{{lastCustomerId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+    "cust_first_name": "Jane",
+    "cust_last_name": "Doe",
+    "cust_email": "jane@a.com",
+    "cust_date_of_birth": "1990-01-01",
+    "cust_phone_number": "1234567890",
+    "cust_address": "123 Main St",
+    "city_id": 6,
+    "seller_id": 3
+}
+
+###
+# @name getAllCustomers
+GET {{baseUrl}}/customers
+Authorization: Bearer {{authToken}}
+
+###
+# @name getCustomerById
+GET {{baseUrl}}/customers/{{lastCustomerId}}
+Authorization: Bearer {{authToken}}
+

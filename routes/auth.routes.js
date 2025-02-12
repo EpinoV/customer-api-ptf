@@ -23,7 +23,7 @@ router.use((req, res, next) => {
         next()
       })
 
-    //next();
+    next();
 });
 
 // Ruta de login

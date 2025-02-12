@@ -45,7 +45,6 @@ jspm_packages/
 **/package-lock.json
 
 # REST CLIENT API FILES
-api.http
 test-conection.js
 
 # Snowpack dependency directory (https://snowpack.dev/)
